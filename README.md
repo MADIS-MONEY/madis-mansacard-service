@@ -1,6 +1,6 @@
 # Digital Banking API - Madis / Mansa Bank Integration (madis-mansacard-service)
 
-This Service is a **Spring Boot** and **Java 21** implementation of the **madis-mansacard-service** for **Mansa Finance**. It provides RESTful endpoints those interact with Mansa Bank's core banking system, supporting operations like agent account activation, credit card management, balance inquiries, and transaction history retrieval.
+This Service is a **Spring Boot** and **Java 21** implementation of the **madis-mansacard-service** for **Madis Finance**. It provides RESTful endpoints those interact with Mansa Bank's core banking system, supporting operations like agent account activation, credit card management, balance inquiries, and transaction history retrieval.
 
 ## Key Features
 - **Agent Account Activation**: Secure activation of agent accounts using AES-encrypted PINs.
@@ -24,12 +24,12 @@ This Service is a **Spring Boot** and **Java 21** implementation of the **madis-
 
 | Endpoint                           | Method | Description                                                   |
 |-------------------------------------|--------|---------------------------------------------------------------|
-| `/activationagent/madis`            | POST   | Activate an agent account using a secure PIN.                  |
-| `/create_card/madis`                | POST   | Create a new credit card linked to a customer account.         |
-| `/operation_card/madis`             | POST   | Activate, deactivate, block, or unblock a credit card.         |
-| `/balance_card/madis`               | POST   | Retrieve the balance of a credit card.                         |
-| `/recharge_card/madis`              | POST   | Recharge a credit card with a specified amount.                |
-| `/history/madis`                    | POST   | Retrieve transaction history for a credit card.                |
+| `/madis/activation-agent`            | POST   | Activate an agent account using a secure PIN.                  |
+| `/madis/create-card`                | POST   | Create a new credit card linked to a customer account.         |
+| `/madis/operation-card`             | POST   | Activate, deactivate, block, or unblock a credit card.         |
+| `/madis/balance-card`               | POST   | Retrieve the balance of a credit card.                         |
+| `/madis/recharge-card`              | POST   | Recharge a credit card with a specified amount.                |
+| `/madis/history`                    | POST   | Retrieve transaction history for a credit card.                |
 
 ## Running the Application
 
