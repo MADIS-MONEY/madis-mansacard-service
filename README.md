@@ -40,8 +40,8 @@ Ensure you have the following installed:
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/digital-banking-api-madis.git
-cd digital-banking-api-madis
+git clone https://github.com/MADIS-MONEY/madis-mansacard-service.git
+cd madis-mansacard-service
 ```
 
 # Running the Application with Maven
@@ -55,7 +55,7 @@ Alternatively, you can build the project and run the JAR file:
 
 ```bash
 ./mvnw clean install
-java -jar target/digital-banking-api-madis.jar
+java -jar target/madis-mansacard-service.jar
 ```
 
 The application will start on **http://localhost:xxxx**.
