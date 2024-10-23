@@ -48,14 +48,12 @@ cd digital-banking-api-madis
 To run the application using the Maven wrapper:
 
 ```bash
-Copiar código
 ./mvnw spring-boot:run
 ```
 # Building and Running the JAR
 Alternatively, you can build the project and run the JAR file:
 
 ```bash
-Copiar código
 ./mvnw clean install
 java -jar target/digital-banking-api-madis.jar
 ```
