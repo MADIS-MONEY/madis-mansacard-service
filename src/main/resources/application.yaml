@@ -2,41 +2,26 @@ spring:
   application:
     name: mansacard-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/madisdb?schema=public}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/madis_db?schema=public}
     driver-class-name: org.postgresql.Driver
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:5teevyclear!}
+    username: ${SPRING_DATASOURCE_USERNAME:poc}
+    password: ${SPRING_DATASOURCE_PASSWORD:poc2025}
   jackson:
     default-property-inclusion: NON_EMPTY
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate.ddl-auto: update
+    generate-ddl: true
     show-sql: false
-  cloud:
-    discovery:
-      client:
-        simple:
-          enabled: false # Disable simple discovery client
-      aws:
-        enabled: true  # Enable AWS-specific discovery
-    loadbalancer:
-      ribbon:
-        enabled: true # Enable Ribbon-based load balancing (optional)
+    
 info:
   app:
     name: ${spring.application.name}
 
-cloud:
-  aws:
-    region:
-      static: eu-north-1 # Replace with your AWS region
-    discovery:
-      enabled: true # Enable service discovery
-    cloud-map:
-      namespace: madis-ns-02  # Replace with your AWS Cloud Map namespace name
-      discovery-service-id: mansacard-service # Replace with the ID of your service registered in Cloud Map
-      health-check:
-        enabled: true # Optional: Enable health check for service instances
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
 
 feign:
   client:
@@ -44,6 +29,7 @@ feign:
       default:
         connect-timeout: 5000
         read-timeout: 5000
+        loggerLevel: basic
   discovery:
     enabled: true  # Enables Feign to use Consul for service discovery
 
@@ -74,7 +60,7 @@ management:
 logging:
   level:
     root: ERROR
-    com.madisfinance.mansacardservice: INFO
-    org.springframework.web: ERROR
+    '[com.madisfinance.mansacardservice]': INFO
+    '[org.springframework.web]': ERROR
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8081}
