@@ -1,3 +1,3 @@
 spring:
   application:
-    name: mansacard-service
+    name: card-service

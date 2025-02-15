@@ -17,11 +17,11 @@ FROM eclipse-temurin:21
 WORKDIR /opt
 
 # Expose the application port
-ENV PORT 8080
-EXPOSE 8080
+ENV PORT 8083
+EXPOSE 8083
 
 # Copy the built JAR file from the build stage
-COPY --from=build /app/target/*.jar /opt/madisvirtualcard.jar
+COPY --from=build /app/target/*.jar /opt/card.jar
 
 # Run the application
-ENTRYPOINT ["java", "-Xmx3076M", "-jar", "/opt/madisvirtualcard.jar"]
+ENTRYPOINT ["java", "-Xmx3076M", "-jar", "/opt/card.jar"]

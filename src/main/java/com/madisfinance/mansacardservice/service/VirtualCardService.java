@@ -4,10 +4,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import com.madisfinance.mansacardservice.dto.VirtualCard;
 import com.madisfinance.mansacardservice.repository.VirtualCardRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class VirtualCardService {
@@ -17,12 +22,22 @@ public class VirtualCardService {
         this.cardRepository = cardRepository;
     }
 
+    @Retryable(value = ObjectOptimisticLockingFailureException.class, maxAttempts = 3, backoff = @Backoff(delay = 500))
+    @Transactional
     public VirtualCard createVirtualCard() {
-        String cardNumber = CardNumberGenerator.generateRandomCardNumber();
-        String expirationDate = CardNumberGenerator.generateExpirationDate();
-        String cvv = CardNumberGenerator.generateCvv();
-        // Create and return the virtual card
-        return this.cardRepository.save(new VirtualCard(Long.MAX_VALUE, cardNumber, expirationDate, cvv));
+        try {
+            String cardNumber = CardNumberGenerator.generateRandomCardNumber();
+            String expirationDate = CardNumberGenerator.generateExpirationDate();
+            String cvv = CardNumberGenerator.generateCvv();
+            // Create and return the virtual card
+            VirtualCard card = new VirtualCard(cardNumber, expirationDate, cvv);
+            card = this.cardRepository.save(card);
+            return card;
+        } catch (ObjectOptimisticLockingFailureException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating virtual card.", e);
+        }
     }
 
     static class CardNumberGenerator {

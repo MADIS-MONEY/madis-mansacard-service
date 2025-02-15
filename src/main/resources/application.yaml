@@ -1,11 +1,17 @@
 spring:
   application:
-    name: mansacard-service
+    name: card-service
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/madis_db?schema=public}
     driver-class-name: org.postgresql.Driver
     username: ${SPRING_DATASOURCE_USERNAME:poc}
     password: ${SPRING_DATASOURCE_PASSWORD:poc2025}
+    hikari:
+      minimum-idle: 2              # Keep at least 5 idle connections
+      maximum-pool-size: 5        # Prevent excessive DB connections per service
+      idle-timeout: 30000          # Close idle connections after 30s
+      max-lifetime: 1800000        # Recycle connections every 30 min
+      connection-timeout: 30000  
   jackson:
     default-property-inclusion: NON_EMPTY
   jpa:
@@ -13,25 +19,29 @@ spring:
     hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: false
-    
+  cloud:
+    discovery:
+      enabled: true
+
 info:
   app:
     name: ${spring.application.name}
 
+
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/} # Replace with Eureka server URL
+    register-with-eureka: true  # Register this service with Eureka
+    fetch-registry: true        # Fetch registry to discover other services
+  instance:
+    lease-renewal-interval-in-seconds: 30  # Frequency of heartbeat
+    lease-expiration-duration-in-seconds: 90 # Expiration if no heartbeat
+    prefer-ip-address: true
+    ip-address: ${EUREKA_INSTANCE_IP_ADDRESS:card-service.madisgroup.local}
+    hostname: ${HOSTNAME:card-service.madisgroup.local} 
 
-feign:
-  client:
-    config:
-      default:
-        connect-timeout: 5000
-        read-timeout: 5000
-        loggerLevel: basic
-  discovery:
-    enabled: true  # Enables Feign to use Consul for service discovery
+
 
 springdoc:
   api-docs:
@@ -43,10 +53,10 @@ springdoc:
 management:
   endpoint:
     health:
-      enabled: true
+      access: unrestricted
       show-details: always
     metrics:
-      enabled: true
+      access: unrestricted
   endpoints:
     jmx:
       exposure:
@@ -60,7 +70,7 @@ management:
 logging:
   level:
     root: ERROR
-    '[com.madisfinance.mansacardservice]': INFO
+    '[com.madisfinance.mansacardservice]': DEBUG
     '[org.springframework.web]': ERROR
 server:
-  port: ${PORT:8081}
+  port: ${PORT:8083}
