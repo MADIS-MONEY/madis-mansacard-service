@@ -28,20 +28,28 @@ info:
     name: ${spring.application.name}
 
 
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/} # Replace with Eureka server URL
-    register-with-eureka: true  # Register this service with Eureka
-    fetch-registry: true        # Fetch registry to discover other services
-  instance:
-    lease-renewal-interval-in-seconds: 30  # Frequency of heartbeat
-    lease-expiration-duration-in-seconds: 90 # Expiration if no heartbeat
-    prefer-ip-address: true
-    ip-address: ${EUREKA_INSTANCE_IP_ADDRESS:card-service.madisgroup.local}
-    hostname: ${HOSTNAME:card-service.madisgroup.local} 
+# eureka:
+#   client:
+#     service-url:
+#       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/} # Replace with Eureka server URL
+#     register-with-eureka: true  # Register this service with Eureka
+#     fetch-registry: true        # Fetch registry to discover other services
+#   instance:
+#     lease-renewal-interval-in-seconds: 30  # Frequency of heartbeat
+#     lease-expiration-duration-in-seconds: 90 # Expiration if no heartbeat
+#     prefer-ip-address: true
+#     ip-address: ${EUREKA_INSTANCE_IP_ADDRESS:card-service.madisgroup.local}
+#     hostname: ${HOSTNAME:card-service.madisgroup.local} 
 
-
+mansa:
+  baseurl: ${MANSA_BASE_URL:https://dev-api.mansabank.com}
+  basicauth:
+    chain: ${MANSA_BASIC_AUTH_CHAIN:Basic bWFkaXM6bWFkaXNAMTIzNA==}
+    username: ${MANSA_BASIC_AUTH_USERNAME:madis}
+    password: ${MANSA_BASIC_AUTH_PASSWORD:madis}
+  agentnumber: ${MANSA_AGENT_NUMBER:2722215146}
+  pinagent: ${MANSA_PIN_AGENT:eyJpdiI6IkRcL1lFUWRsR3dxVW5Gb2JSOHdvRWt3PT0iLCJkYXRhIjoieVwvSnJmMUx2MTViZ1wvOE43cVlDRXF3PT0ifQ==}
+  phrase: ${MANSA_PHRASE:BFBD8999011F0541D2E7DFAD5EFD117B9D85EDC84D6CD1E82BCE6F62CAE3F3B7}
 
 springdoc:
   api-docs:

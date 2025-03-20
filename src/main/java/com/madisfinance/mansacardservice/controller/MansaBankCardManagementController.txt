@@ -49,6 +49,7 @@ public class MansaBankCardManagementController {
 
     @PostMapping("/balance-card")
     public Mono<BalanceCardResponse> getBalance(@RequestBody BalanceCardRequest request) {
+        System.out.println("Request: " + request);
         return mansaBankCardManagementService.getBalance(request);
     }
 

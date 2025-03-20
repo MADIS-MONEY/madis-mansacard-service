@@ -17,7 +17,7 @@ import com.madisfinance.mansacardservice.service.VirtualCardService;
 @RequestMapping("/card")
 public class VirtualCardController {
     private final VirtualCardService cardService;
-    private static final Logger logger = LoggerFactory.getLogger(VirtualCardService.class);
+    private static final Logger logger = LoggerFactory.getLogger(VirtualCardController.class);
 
     public VirtualCardController(VirtualCardService cardService) {
         this.cardService = cardService;

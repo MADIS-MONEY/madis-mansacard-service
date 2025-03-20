@@ -22,7 +22,7 @@ public class VirtualCardService {
         this.cardRepository = cardRepository;
     }
 
-    @Retryable(value = ObjectOptimisticLockingFailureException.class, maxAttempts = 3, backoff = @Backoff(delay = 500))
+    @Retryable(retryFor = ObjectOptimisticLockingFailureException.class, maxAttempts = 3, backoff = @Backoff(delay = 500))
     @Transactional
     public VirtualCard createVirtualCard() {
         try {
